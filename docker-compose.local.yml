@@ -1,0 +1,42 @@
+services:
+  redis:
+    image: redis:7-alpine
+    container_name: local_lesson_redis
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    restart: always
+
+  postgres:
+    container_name: local_lesson_postgres
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: lesson_user
+      POSTGRES_PASSWORD: lesson_pass
+      POSTGRES_DB: lesson_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lesson_user -d lesson_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  celery_worker:
+    container_name: local_lesson_celery_worker
+    build: .
+    env_file: .env.local
+    command: celery -A core worker -Q default --loglevel=info --concurrency=4
+    depends_on:
+      - redis
+      - postgres
+    restart: always
+
+volumes:
+  redis_data:
+  postgres_data:
+

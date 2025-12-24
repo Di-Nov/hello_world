@@ -1,0 +1,56 @@
+# OS & Editors folders
+.DS_Store
+.cache
+.directory
+.project
+.settings
+.tmproj
+.ropeproject
+.pydevproject
+nbproject
+Thumbs.db
+.idea
+*.orig
+.c9
+.~c9_invoke*
+*~
+
+# Python
+__pycache__
+*.pyc
+
+# Development
+logs/
+*.log
+*.old
+celerybeat-schedule
+
+# Collected static & Dev media
+/media
+/static
+
+# DBs
+/*.db
+/*.sqlite3
+*.backup
+*.dump
+
+
+# Djando
+*.egg-info
+*.pot
+*.py[co]
+.tox/
+MANIFEST
+dist/
+docs/_build/
+docs/locale/
+node_modules/
+old_tests/coverage_html/
+old_tests/.coverage
+build/
+old_tests/report/
+/venv/
+/.venv/
+.env
+.env.local

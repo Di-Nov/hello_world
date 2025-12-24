@@ -1,0 +1,77 @@
+services:
+
+  nginx:
+    container_name: lesson_nginx
+    image: nginx:alpine
+    ports:
+      - "80:80"
+    volumes:
+      - ./configs/nginx.conf:/etc/nginx/nginx.conf
+      - static_volume:/app/static_files
+    depends_on:
+      - app
+    restart: always
+    networks:
+      - app_network
+
+  app:
+    container_name: lesson_app
+    build: .
+    env_file: .env
+    volumes:
+      - static_volume:/app/static_files
+    networks:
+      - lesson_network
+      - app_network
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    container_name: lesson_redis
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - lesson_network
+    restart: always
+
+  postgres:
+    container_name: lesson_postgres
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: lesson_user
+      POSTGRES_PASSWORD: lesson_pass
+      POSTGRES_DB: lesson_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U lesson_user -d lesson_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: always
+    networks:
+      - lesson_network
+
+  celery_worker:
+    container_name: lesson_celery_worker
+    build: .
+    env_file: .env
+    command: celery -A core worker -Q default --loglevel=info --concurrency=4
+    depends_on:
+      - redis
+      - postgres
+    restart: always
+    networks:
+      - lesson_network
+
+volumes:
+  redis_data:
+  postgres_data:
+  static_volume:
+
+networks:
+  lesson_network:
+    driver: bridge
+  app_network:
+    driver: bridge
