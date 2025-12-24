@@ -65,7 +65,7 @@ docker-compose up -d --build
 ```
 ### Шаг 4: Проверка статуса
 ```bash
-docker-compose ps
+docker ps
 ```
 Вы должны увидеть работающие контейнеры:
 
@@ -80,6 +80,19 @@ docker-compose ps
 -   Django приложение: http://localhost
 -   Swagger документация: http://localhost/swagger/
 -   Admin панель: http://localhost/admin/  (Имя пользователя: root, Пароль: root)
+
+### Шаг 5: Логи Celery Worker:
+Здесь вы увидите процесс выполнения задачи в реальном времени:
+```bash
+docker logs -f lesson_celery_worker 
+```
+
+### Шаг 6: Изменим статус 3 уроков:
+Предлагаю сделать это через админку. Так как при изменении через апи, стоит валидаци. 
+Ее можно посмотреть view. 
+
+Пример работы Celery
+![Пример работы Celery](https://private-user-images.githubusercontent.com/117760934/530092944-fcb60af5-a94a-4bba-9c44-25f4be956047.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjY2MTcwNjQsIm5iZiI6MTc2NjYxNjc2NCwicGF0aCI6Ii8xMTc3NjA5MzQvNTMwMDkyOTQ0LWZjYjYwYWY1LWE5NGEtNGJiYS05YzQ0LTI1ZjRiZTk1NjA0Ny5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMjI0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTIyNFQyMjUyNDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01MWU1ODRhNjZhZWY1MjA3NGUzYzc2MzM0Njc1ZDQ3ZWMzNWNlYmNiNmY5OGM3NjNkNGFmNGY4MzE3NTk4ZTAwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.RgryYRTqNJP2JnCNBMS6LOp5_9zuCi8pfO52h8ub3sA)
 
 #### Авторизация в админ-панели
 При первом запуске автоматически создается суперпользователь:
