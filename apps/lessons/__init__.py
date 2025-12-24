@@ -1,1 +1,1 @@
-default_app_config = 'apps.lessons.apps.LessonsConfig'
+default_app_config = "apps.lessons.apps.LessonsConfig"

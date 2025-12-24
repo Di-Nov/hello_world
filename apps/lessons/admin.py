@@ -6,31 +6,29 @@ from .models import Lesson
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = (
-        'title',
-        'teacher',
-        'student',
-        'start_time',
-        'end_time',
-        'status',
-        'created_at',
+        "title",
+        "teacher",
+        "student",
+        "start_time",
+        "end_time",
+        "status",
+        "created_at",
     )
 
     list_filter = (
-        'status',
-        'teacher',
-        'student',
+        "status",
+        "teacher",
+        "student",
     )
 
-    search_fields = (
-        'title',
-    )
+    search_fields = ("title",)
 
     readonly_fields = (
-        'created_at',
-        'updated_at',
+        "created_at",
+        "updated_at",
     )
 
-    actions = ['mark_as_completed', 'mark_as_cancelled']
+    actions = ["mark_as_completed", "mark_as_cancelled"]
 
     def mark_as_completed(self, request, queryset):
         """Завершение уроков."""
@@ -39,10 +37,7 @@ class LessonAdmin(admin.ModelAdmin):
             if lesson.complete_lesson():
                 count += 1
 
-        self.message_user(
-            request,
-            f'Успешно завершено {count} уроков.'
-        )
+        self.message_user(request, f"Успешно завершено {count} уроков.")
 
     mark_as_completed.short_description = "Завершить выбранные уроки"
 
@@ -53,12 +48,9 @@ class LessonAdmin(admin.ModelAdmin):
             if lesson.cancel_lesson():
                 count += 1
 
-        self.message_user(
-            request,
-            f'Успешно отменено {count} уроков.'
-        )
+        self.message_user(request, f"Успешно отменено {count} уроков.")
 
     mark_as_cancelled.short_description = "Отменить выбранные уроки"
 
     def get_queryset(self, request):
-        return super().get_queryset(request).select_related('teacher', 'student')
+        return super().get_queryset(request).select_related("teacher", "student")

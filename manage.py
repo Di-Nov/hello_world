@@ -6,8 +6,8 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    if 'DJANGO_SETTINGS_MODULE' not in os.environ:
-        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings.local')
+    if "DJANGO_SETTINGS_MODULE" not in os.environ:
+        os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings.local")
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -19,5 +19,5 @@ def main():
     execute_from_command_line(sys.argv)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

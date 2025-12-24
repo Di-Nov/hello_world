@@ -15,24 +15,78 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Lesson',
+            name="Lesson",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='Название урока')),
-                ('description', models.TextField(blank=True, verbose_name='Описание')),
-                ('start_time', models.DateTimeField(verbose_name='Время начала урока')),
-                ('end_time', models.DateTimeField(verbose_name='Время окончания')),
-                ('status', models.CharField(choices=[('draft', 'Черновик'), ('scheduled', 'Запланирован'), ('in_progress', 'В процессе'), ('completed', 'Завершен'), ('cancelled', 'Отменен')], default='draft', max_length=20, verbose_name='Статус урока')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
-                ('updated_at', models.DateTimeField(auto_now=True, verbose_name='Дата обновления')),
-                ('student', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons_attended', to=settings.AUTH_USER_MODEL, verbose_name='Студент')),
-                ('teacher', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons_taught', to=settings.AUTH_USER_MODEL, verbose_name='Преподаватель')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=200, verbose_name="Название урока"),
+                ),
+                ("description", models.TextField(blank=True, verbose_name="Описание")),
+                ("start_time", models.DateTimeField(verbose_name="Время начала урока")),
+                ("end_time", models.DateTimeField(verbose_name="Время окончания")),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("draft", "Черновик"),
+                            ("scheduled", "Запланирован"),
+                            ("in_progress", "В процессе"),
+                            ("completed", "Завершен"),
+                            ("cancelled", "Отменен"),
+                        ],
+                        default="draft",
+                        max_length=20,
+                        verbose_name="Статус урока",
+                    ),
+                ),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата создания"
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateTimeField(auto_now=True, verbose_name="Дата обновления"),
+                ),
+                (
+                    "student",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="lessons_attended",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Студент",
+                    ),
+                ),
+                (
+                    "teacher",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="lessons_taught",
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Преподаватель",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Урок',
-                'verbose_name_plural': 'Уроки',
-                'ordering': ['-start_time'],
-                'constraints': [models.CheckConstraint(condition=models.Q(('end_time__gt', models.F('start_time'))), name='lesson_end_after_start')],
+                "verbose_name": "Урок",
+                "verbose_name_plural": "Уроки",
+                "ordering": ["-start_time"],
+                "constraints": [
+                    models.CheckConstraint(
+                        condition=models.Q(("end_time__gt", models.F("start_time"))),
+                        name="lesson_end_after_start",
+                    )
+                ],
             },
         ),
     ]

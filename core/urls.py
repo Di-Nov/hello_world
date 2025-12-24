@@ -5,8 +5,7 @@ from django.urls import include, path
 from drf_yasg import generators, openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from rest_framework.authentication import (BasicAuthentication,
-                                           SessionAuthentication)
+from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 
 from core.settings.base import MEDIA_ROOT, MEDIA_URL
 
@@ -20,9 +19,9 @@ class BothHttpAndHttpsSchemaGenerator(generators.OpenAPISchemaGenerator):
 
 schema_view = get_schema_view(
     openapi.Info(
-        title='Lesson API',
-        default_version='v1',
-        description='API для управления уроками',
+        title="Lesson API",
+        default_version="v1",
+        description="API для управления уроками",
     ),
     public=True,
     generator_class=BothHttpAndHttpsSchemaGenerator,
@@ -31,10 +30,12 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-
-    path('admin/', admin.site.urls),
-    path('api/v1/', include('apps.lessons.urls', namespace='v1')),
-
+    path(
+        "swagger/",
+        schema_view.with_ui("swagger", cache_timeout=0),
+        name="schema-swagger-ui",
+    ),
+    path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
+    path("admin/", admin.site.urls),
+    path("api/v1/", include("apps.lessons.urls", namespace="v1")),
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

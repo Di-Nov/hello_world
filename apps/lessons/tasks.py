@@ -18,11 +18,11 @@ def send_lesson_created_notification(self, lesson_id):
         time.sleep(5)
         message_success = f"Уведомление по уроку: '{lesson.title}' {lesson_id}, для студента {lesson.student_id} успешно отправлено"
         logger.info(f"[CELERY] {message_success}")
-        return {'status': 'success', 'task': 'lesson_created', 'lesson_id': lesson_id}
+        return {"status": "success", "task": "lesson_created", "lesson_id": lesson_id}
 
     except Lesson.DoesNotExist:
         logger.warning(f"Lesson {lesson_id} не найден")
-        return {'status': 'skipped', 'reason': 'lesson_not_found'}
+        return {"status": "skipped", "reason": "lesson_not_found"}
     except Exception as exc:
         logger.error(f"Ошибка: {exc}")
         raise self.retry(exc=exc, countdown=60)
@@ -40,11 +40,11 @@ def send_lesson_started_notification(self, lesson_id):
         message_success = f"Уведомление о завершении урока: '{lesson.title}' {lesson_id}, для студента {lesson.student_id} успешно отправлено"
         logger.info(f"[CELERY] {message_success}")
 
-        return {'status': 'success', 'task': 'lesson_completed', 'lesson_id': lesson_id}
+        return {"status": "success", "task": "lesson_completed", "lesson_id": lesson_id}
 
     except Lesson.DoesNotExist:
         logger.warning(f"Lesson {lesson_id} не найден")
-        return {'status': 'skipped', 'reason': 'lesson_not_found'}
+        return {"status": "skipped", "reason": "lesson_not_found"}
     except Exception as exc:
         logger.error(f"Ошибка: {exc}")
         raise self.retry(exc=exc, countdown=60)
@@ -62,11 +62,11 @@ def send_lesson_completed_notification(self, lesson_id):
         message_success = f"Уведомление о завершении урока: '{lesson.title}' {lesson_id}, для студента {lesson.student_id} успешно отправлено"
         logger.info(f"[CELERY] {message_success}")
 
-        return {'status': 'success', 'task': 'lesson_completed', 'lesson_id': lesson_id}
+        return {"status": "success", "task": "lesson_completed", "lesson_id": lesson_id}
 
     except Lesson.DoesNotExist:
         logger.warning(f"Lesson {lesson_id} не найден")
-        return {'status': 'skipped', 'reason': 'lesson_not_found'}
+        return {"status": "skipped", "reason": "lesson_not_found"}
     except Exception as exc:
         logger.error(f"Ошибка: {exc}")
         raise self.retry(exc=exc, countdown=60)
@@ -83,11 +83,11 @@ def send_lesson_cancelled_notification(self, lesson_id):
         time.sleep(5)
         message_success = f"Уведомление об отмене урока: '{lesson.title}' {lesson_id}, для студента {lesson.student_id} успешно отправлено"
         logger.info(f"[CELERY] {message_success}")
-        return {'status': 'success', 'task': 'lesson_cancelled', 'lesson_id': lesson_id}
+        return {"status": "success", "task": "lesson_cancelled", "lesson_id": lesson_id}
 
     except Lesson.DoesNotExist:
         logger.warning(f"Lesson {lesson_id} не найден")
-        return {'status': 'skipped', 'reason': 'lesson_not_found'}
+        return {"status": "skipped", "reason": "lesson_not_found"}
     except Exception as exc:
         logger.error(f"Ошибка: {exc}")
         raise self.retry(exc=exc, countdown=60)
