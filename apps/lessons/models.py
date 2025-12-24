@@ -1,8 +1,9 @@
-from django.db import models
+import logging
+
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.db import models
 from django.utils import timezone
-import logging
 
 User = get_user_model()
 logger = logging.getLogger('lesson')

@@ -1,9 +1,11 @@
-from django.core.management.base import BaseCommand
-from django.contrib.auth import get_user_model
-from apps.lessons.models import Lesson
-from django.utils import timezone
-from datetime import timedelta
 import random
+from datetime import timedelta
+
+from django.contrib.auth import get_user_model
+from django.core.management.base import BaseCommand
+from django.utils import timezone
+
+from apps.lessons.models import Lesson
 
 User = get_user_model()
 

@@ -4,12 +4,12 @@ import time
 from django.core.cache import cache
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+
 from .models import Lesson, LessonStatus
-from .tasks import (
-    send_lesson_created_notification,
-    send_lesson_completed_notification,
-    send_lesson_cancelled_notification, send_lesson_started_notification,
-)
+from .tasks import (send_lesson_cancelled_notification,
+                    send_lesson_completed_notification,
+                    send_lesson_created_notification,
+                    send_lesson_started_notification)
 
 logger = logging.getLogger('lessons')
 

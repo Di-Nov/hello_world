@@ -1,13 +1,14 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import include, path
 from drf_yasg import generators, openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authentication import (BasicAuthentication,
+                                           SessionAuthentication)
 
-from core.settings.base import MEDIA_URL, MEDIA_ROOT
+from core.settings.base import MEDIA_ROOT, MEDIA_URL
 
 
 class BothHttpAndHttpsSchemaGenerator(generators.OpenAPISchemaGenerator):
