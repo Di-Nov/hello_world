@@ -91,7 +91,7 @@ class Lesson(models.Model):
 
     def start_lesson(self):
         """Начинает урок."""
-        if self.status == LessonStatus.SCHEDULED:
+        if self.status == [LessonStatus.DRAFT, LessonStatus.SCHEDULED]:
             self.status = LessonStatus.IN_PROGRESS
             self.save(update_fields=["status", "updated_at"])
             return True
@@ -99,7 +99,7 @@ class Lesson(models.Model):
 
     def complete_lesson(self):
         """Завершает урок."""
-        if self.status in [LessonStatus.SCHEDULED, LessonStatus.IN_PROGRESS]:
+        if self.status in [LessonStatus.IN_PROGRESS]:
             self.status = LessonStatus.COMPLETED
             self.save(update_fields=["status", "updated_at"])
             return True
@@ -107,7 +107,7 @@ class Lesson(models.Model):
 
     def cancel_lesson(self):
         """Отменяет урок."""
-        if self.status in [LessonStatus.DRAFT, LessonStatus.SCHEDULED]:
+        if self.status in [LessonStatus.DRAFT, LessonStatus.SCHEDULED, LessonStatus.IN_PROGRESS]:
             self.status = LessonStatus.CANCELLED
             self.save(update_fields=["status", "updated_at"])
             return True
