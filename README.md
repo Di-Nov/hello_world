@@ -88,8 +88,8 @@ docker logs -f lesson_celery_worker
 ```
 
 ### Шаг 6: Изменим статус 3 уроков:
-Предлагаю сделать это через админку. Так как при изменении через апи, стоит валидаци. 
-Ее можно посмотреть view. 
+Это можно сделать через админку или swagger. 
+На изменении статусов стоит валидация, ее можно посмотреть в методах модели lessons.models. 
 
 Пример работы Celery
 ![Пример работы Celery](https://private-user-images.githubusercontent.com/117760934/530092944-fcb60af5-a94a-4bba-9c44-25f4be956047.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NjY2MTcwNjQsIm5iZiI6MTc2NjYxNjc2NCwicGF0aCI6Ii8xMTc3NjA5MzQvNTMwMDkyOTQ0LWZjYjYwYWY1LWE5NGEtNGJiYS05YzQ0LTI1ZjRiZTk1NjA0Ny5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUxMjI0JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MTIyNFQyMjUyNDRaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT01MWU1ODRhNjZhZWY1MjA3NGUzYzc2MzM0Njc1ZDQ3ZWMzNWNlYmNiNmY5OGM3NjNkNGFmNGY4MzE3NTk4ZTAwJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.RgryYRTqNJP2JnCNBMS6LOp5_9zuCi8pfO52h8ub3sA)
@@ -161,6 +161,7 @@ docker logs -f lesson_celery_worker
 
 #### 4. Потенциальные улучшения
 
+-   API уроков и распределение доступа к ним исходя из прав доступа, например: только учителя могут отменять уроки и только свои.
 -   Модель пользователя: Расширить стандартную модель Django, добавив роли (админ, учитель, студент, менеджер), профили с фото, JWT-аутентификацию для API.
 -   Тестирование: Написать unit-тесты для моделей, API-тесты с pytest-django, тесты для Celery-задач.
 -   Мониторинг: Интегрировать Sentry для отслеживания ошибок, Flower для мониторинга очередей Celery.
