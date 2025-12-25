@@ -9,3 +9,4 @@ DATABASES["default"]["HOST"] = "localhost"
 CELERY_BROKER_URL = os.getenv("REDIS_BROKER", "redis://localhost:6379/0")
 REDIS_BROKER = os.getenv("REDIS_BROKER", "redis://localhost:6379/0")
 CACHES["default"]["LOCATION"] = ("redis://localhost:6379/1",)
+SWAGGER_SETTINGS['DEFAULT_API_URL']= "http://localhost:8000"

@@ -139,7 +139,7 @@ SWAGGER_SETTINGS = {
     "SECURITY_DEFINITIONS": {
         "Token": {"type": "apiKey", "name": "Authorization", "in": "header"}
     },
-    "DEFAULT_API_URL": "http://localhost:8000",
+    "DEFAULT_API_URL": "http://localhost",
     "USE_SESSION_AUTH": True,
     "DEFAULT_SCHEME": "http",
     "VALIDATOR_URL": None,
