@@ -1,6 +1,6 @@
 from django.db.models import Q
 from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
+from drf_yasg.utils import swagger_auto_schema, no_body
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -119,10 +119,7 @@ class LessonViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         operation_summary="Начать урок",
-        operation_description="""
-            Переводит урок в статус "В процессе".
-            Доступно только преподавателю урока.
-            """,
+        request_body=no_body,
         responses={
             200: openapi.Response(
                 description="Начинаем урок",
@@ -164,10 +161,7 @@ class LessonViewSet(viewsets.ModelViewSet):
 
     @swagger_auto_schema(
         operation_summary="Завершить урок",
-        operation_description="""
-            Переводит урок в статус "завершен".
-            Доступно только преподавателю урока.
-            """,
+        request_body=no_body,
         responses={
             200: openapi.Response(
                 description="Урок завершен",
@@ -201,16 +195,13 @@ class LessonViewSet(viewsets.ModelViewSet):
             return Response({"status": "Урок завершен"})
         else:
             return Response(
-                {"error": "Не удалось завершить урок"},
+                {"error": "Не удалось завершить урок. Урок должен быть в статусе 'В процессе'"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
     @swagger_auto_schema(
         operation_summary="Отменить урок",
-        operation_description="""
-            Переводит урок в статус "отменен".
-            Доступно только преподавателю урока.
-            """,
+        request_body=no_body,
         responses={
             200: openapi.Response(
                 description="Урок отменен",
@@ -244,6 +235,6 @@ class LessonViewSet(viewsets.ModelViewSet):
             return Response({"status": "Урок отменен"})
         else:
             return Response(
-                {"error": "Не удалось отменить урок"},
+                {"error": "Невозможно отменить завершенный или уже отмененный урок"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
